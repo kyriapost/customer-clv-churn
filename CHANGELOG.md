@@ -24,3 +24,18 @@
 - Train period: Dec 2010 – Sep 2011 
 - Test period: Sep 2011 – Dec 2011 
 - Two-stage model: BG/NBD CLV → XGBoost churn classifier 
+
+## [0.2.0] — [11/3/2026] 
+### Added 
+- src/data/models.py: RawTransaction, CustomerFeatures, ChurnResult tables 
+- Segment logic documented: Champions / At Risk / Promising / Lost 
+- UniqueConstraints on (customer_id, run_date) for upsert safety - database/migrations/: Alembic migration 'Add CLV and churn tables' 
+- scripts/ingest_data.py: loads UCI Excel, cleans, inserts ~400k rows 
+- Idempotent via ON CONFLICT DO NOTHING on uq_invoice_line 
+- src/data/loader.py: load_transactions, load_customer_features load_churn_results, save_customer_features, save_churn_results 
+- All load functions raise ValueError on empty result 
+- Both save functions use upsert - tests/test_data_layer.py: 8 tests covering models and churn logic 
+  
+### Data 
+- clv_raw_transactions: ~400000 rows ingested 
+- Customers with valid CustomerID: ~4,338 
