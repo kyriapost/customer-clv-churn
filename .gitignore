@@ -19,6 +19,7 @@ data/raw/*.csv
 data/processed/
 *.db
 *.sqlite
+database/migrations/versions/__pycache__/
 
 # === OS ===
 .DS_Store

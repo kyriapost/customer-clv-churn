@@ -39,3 +39,23 @@
 ### Data 
 - clv_raw_transactions: ~400000 rows ingested 
 - Customers with valid CustomerID: ~4,338 
+
+## [0.3.0] — [11/3/2026] 
+### Added 
+- src/features/rfm.py: build_rfm(), split_train_test() 
+- RFMResult dataclass: rfm, gg_df, snapshot_date, churn_rate 
+- CHURN_THRESHOLD_DAYS = 90 (SCOPE.md Decision 1) 
+- avg_order_val capped at 99th percentile (whale customer fix) - src/models/clv.py: fit_bgnbd(), fit_gamma_gamma(), predict_clv() 
+- CLVResult dataclass 
+- Segment logic: Champions / At Risk / Promising / Lost 
+- evaluate_bgnbd() returns MAE (SCOPE.md M1 metric) - scripts/run_pipeline.py: end-to-end CLV pipeline 
+- 6-step pipeline with progress logging 
+- Saves to customer_features and churn_results tables - tests/test_features.py: 8 tests - tests/test_clv.py: 5 tests 
+  
+### Results 
+- BG/NBD MAE (test set): 0.9986 
+- Churn rate (90-day): 43.5% - Segment distribution: 
+- Champions:  1614 (48,2%) 
+- At Risk:    1 (0%) 
+- Promising:  1722 (51,5%) 
+- Lost:       9 (0,3%)
