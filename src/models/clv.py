@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np 
 from dataclasses import dataclass 
 from lifetimes import BetaGeoFitter, GammaGammaFitter 
-from lifetimes.utils import summary_data_from_transaction_data 
   
   
 @dataclass 
@@ -122,9 +121,12 @@ def _assign_segment(clv: float, p_alive: float, clv_median: float) -> str:
     """ 
     high_value = clv     >= clv_median 
     high_alive = p_alive >= 0.5 
-    if high_value and high_alive:  return 'Champions' 
-    if high_value and not high_alive: return 'At Risk' 
-    if not high_value and high_alive: return 'Promising' 
+    if high_value and high_alive:  
+        return 'Champions' 
+    if high_value and not high_alive: 
+        return 'At Risk' 
+    if not high_value and high_alive: 
+        return 'Promising' 
     return 'Lost' 
   
   
